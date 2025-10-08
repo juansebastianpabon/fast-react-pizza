@@ -1,8 +1,10 @@
 import LinkButton from "../../ui/LinkButton";
 import Button from "../../ui/Button";
 import CartItem from "./CartItem";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-const fakeCart = [
+/* const fakeCart = [
   {
     pizzaId: 12,
     name: "Mediterranean",
@@ -24,16 +26,19 @@ const fakeCart = [
     unitPrice: 15,
     totalPrice: 15,
   },
-];
+]; */
 
 function Cart() {
-  const cart = fakeCart;
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart.cart);
+
+  const username = useSelector((state) => state.user.username);
 
   return (
     <div className="px-4 py-3">
       <LinkButton to="/menu">&larr; Back to menu</LinkButton>
 
-      <h2 className="mt-7 text-xl font-semibold">Your cart, %NAME%</h2>
+      <h2 className="mt-7 text-xl font-semibold">Your cart, {username}</h2>
       <ul className="mt-3 divide-y divide-stone-200 border-b border-stone-200">
         {cart.map((item) => (
           <CartItem item={item} key={item.key} />
